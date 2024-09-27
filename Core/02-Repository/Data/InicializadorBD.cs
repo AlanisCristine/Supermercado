@@ -35,6 +35,14 @@ namespace TrabalhoFinal._02_Repository.Data
                  UsuarioId INTEGER NOT NULL
                  );";
 
+                commandoSQL += @"   
+                 CREATE TABLE IF NOT EXISTS Enderecos(
+                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 Rua STRING NOT NULL,
+                 Bairro STRING NOT NULL,
+                 Numero INTEGER NOT NULL
+                 );";
+
                 connection.Execute(commandoSQL);
             }
         }

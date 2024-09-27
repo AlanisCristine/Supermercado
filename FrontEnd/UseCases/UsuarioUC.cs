@@ -5,6 +5,8 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Core._03_Entidades.DTO;
+using FrontEnd.Models;
 
 namespace FrontEnd.UseCases
 {
@@ -17,19 +19,18 @@ namespace FrontEnd.UseCases
         }
         public List<Usuario> ListarUsuario()
         {
-           return _client.GetFromJsonAsync<List<Usuario>>("Usuario/listar-usuario").Result;
-            
+            return _client.GetFromJsonAsync<List<Usuario>>("Usuario/listar-usuario").Result;
         }
 
         public void CadastrarUsuario(Usuario usuario)
         {
-            //string apiURL = "https://localhost:7096/Usuario/adicionar-usuario";
-            //using HttpClient client = new HttpClient();//para fazer o send/Criar a conexão
-            //string jsonRequest = JsonSerializer.Serialize(usuario);
-            //HttpResponseMessage response = await client.PostAsJsonAsync(apiURL, jsonRequest);
-
             HttpResponseMessage response = _client.PostAsJsonAsync("Usuario/adicionar-usuario", usuario).Result;
-
+        }
+        public Usuario FazerLogin(UsuarioLoginDTO usuarioLogin)
+        {
+            HttpResponseMessage response = _client.PostAsJsonAsync("Usuario/Fazer-Login", usuarioLogin).Result; //Simula um clique que vc da no execute do swagger
+            Usuario usuario = response.Content.ReadFromJsonAsync<Usuario>().Result;
+            return usuario;
         }
     }
 }

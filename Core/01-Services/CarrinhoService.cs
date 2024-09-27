@@ -1,4 +1,5 @@
 ﻿using Core.Entidades;
+using FrontEnd.Models.DTO;
 using TrabalhoFinal._02_Repository;
 
 namespace TrabalhoFinal._01_Services;
@@ -19,7 +20,12 @@ public class CarrinhoService
     {
         repository.Remover(id);
     }
+    public List<CarrinhoDTO> ListarCarrinhoPreenchido(int usuarioId)
+    {
+        return repository.ListarCarrinhoPreenchido(usuarioId);
+    }
 
+    
     public List<Carrinho> Listar()
     {
         return repository.Listar();

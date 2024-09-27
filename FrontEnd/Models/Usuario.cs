@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FrontEnd
+namespace FrontEnd.Models
 {
     public class Usuario
     {
@@ -16,7 +16,7 @@ namespace FrontEnd
 
         public override string ToString()
         {
-            return $"Id: {id} - Nome: {nome} - Email: {email}";
+            return $"Id: {id} - Nome: {nome} - Email: {email} - Senha  {senha}";
         }
 
     }
