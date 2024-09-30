@@ -1,4 +1,5 @@
-﻿using Core._03_Entidades.DTO;
+﻿using Core._03_Entidades;
+using Core._03_Entidades.DTO;
 using FrontEnd.Models;
 using FrontEnd.Models.DTO;
 using FrontEnd.UseCases;
@@ -17,6 +18,7 @@ public class Sistema
     private readonly UsuarioUC _usuarioUC;
     private readonly ProdutoUC _produtoUC;
     private readonly CarrinhoUC _carrinhoUC;
+    private readonly EnderecoUC _enderecoUC;
     public Produto IdProd { get; set; }
     private static Usuario UsuarioLogado { get; set; }
 
@@ -25,6 +27,7 @@ public class Sistema
         _usuarioUC = new UsuarioUC(client);
         _produtoUC = new ProdutoUC(client);
         _carrinhoUC = new CarrinhoUC(client);
+        _enderecoUC = new EnderecoUC(client);
     }
 
     public void IniciarSistema()
@@ -182,11 +185,58 @@ public class Sistema
             Console.WriteLine(ca.ToString());
             Console.WriteLine($"Produto adicionado ao carrinho com sucesso");
         }
+
+        Retirada();
         
-          Console.WriteLine("Qual das opções baixo você deseja realizar?");
-        Console.WriteLine("1 - Desejo retirar na loja");
-        Console.WriteLine("2 - Desejo receber em casa");
         return car;
+    }
+
+    public void Retirada ()
+    {
+        Console.WriteLine("Qual das opções baixo você deseja realizar?");
+        Console.WriteLine("1 -Desejo receber em casa ");
+        Console.WriteLine("2 - Desejo retirar na loja");
+        int resp = int.Parse(Console.ReadLine());
+        if (resp == 1)
+        {
+            Console.WriteLine("Você já tem endereço cadastrado?");
+            Console.WriteLine("1 - Sim");
+            Console.WriteLine("2 - Não");
+            int resposta = int.Parse(Console.ReadLine());
+            if (resposta == 1)
+            {
+                _enderecoUC.ListarEnderecoPorId(UsuarioLogado);
+                List<Endereco> enderecos = _enderecoUC.ListarEnderecoPorId(UsuarioLogado);
+                foreach (Endereco en in enderecos)
+                {
+                    Console.WriteLine(en.ToString());
+                    Console.WriteLine($"-------------");
+                }
+            }
+            else if(resposta == 2)
+            {
+                Endereco end = CriarEndereco();
+                _enderecoUC.AdicionarEndereco(end);
+                Console.WriteLine("Endereço Cadastrado com sucesso");
+            }
+        }
+        else if(resp == 2)
+        {
+            Console.WriteLine("Pode retirar dentro de 3 dias úteis");
+        }
+
+    }
+    public Endereco CriarEndereco()
+    {
+        Endereco endereco = new Endereco();
+        Console.WriteLine("Qual é a sua rua?");
+        endereco.Rua = Console.ReadLine();
+        Console.WriteLine("Qual é o número da sua casa?");
+        endereco.Numero = int.Parse(Console.ReadLine());
+        Console.WriteLine("Qual é o seu bairro?");
+        endereco.Bairro = Console.ReadLine();
+        Console.WriteLine("Produto cadastrado com sucesso");
+        return endereco;
     }
 
 }

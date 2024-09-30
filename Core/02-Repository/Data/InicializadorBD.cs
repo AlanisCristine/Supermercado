@@ -40,7 +40,8 @@ namespace TrabalhoFinal._02_Repository.Data
                  Id INTEGER PRIMARY KEY AUTOINCREMENT,
                  Rua STRING NOT NULL,
                  Bairro STRING NOT NULL,
-                 Numero INTEGER NOT NULL
+                 Numero INTEGER NOT NULL,
+                 UsuarioId int NOT NULL
                  );";
 
                 connection.Execute(commandoSQL);
