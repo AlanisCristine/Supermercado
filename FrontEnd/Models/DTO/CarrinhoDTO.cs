@@ -16,7 +16,9 @@ namespace FrontEnd.Models.DTO
 
         public override string ToString()
         {
-            return $"Id:{Id} - Usuario:{Usuario} - Produto:{Produto} \n";
+            return $"Usuario: {Usuario.nome} - Produto: {Produto.Nome} - Preço: {Produto.Preco}" +
+                $" \n ------------------------------------------ ";
+           
         }
 
     }

@@ -16,15 +16,18 @@ namespace FrontEnd.UseCases
         {
             _client = client;
         }
-        public void AdicionarEndereco(Endereco end)
+        public Endereco AdicionarEndereco(Endereco end)
         {
             HttpResponseMessage response = _client.PostAsJsonAsync("Endereco/adicionar-Endereco", end).Result;
+            Endereco enderecoCadastrado = response.Content.ReadFromJsonAsync<Endereco>().Result;
+            return enderecoCadastrado;
+
         }
 
 
         public List<Endereco> ListarEnderecoPorId(Usuario usuariologado)
         {
-            return _client.GetFromJsonAsync<List<Endereco>>("Endereco/Listar-Enderecos-de-Usuario?usuarioId" + usuariologado.id).Result;
+            return _client.GetFromJsonAsync<List<Endereco>>("Endereco/Listar-Enderecos-de-Usuario?usuarioId=" + usuariologado.id).Result;
         }
     }
 }

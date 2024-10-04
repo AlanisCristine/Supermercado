@@ -19,10 +19,11 @@ public class EnderecoController : ControllerBase
         _mapper = mapper;
     }
     [HttpPost("adicionar-Endereco")]
-    public void AdicionarAluno(Endereco enderecoDTO)
+    public Endereco AdicionarAluno(Endereco enderecoDTO)
     {
-        Endereco produto = _mapper.Map<Endereco>(enderecoDTO);
+        Endereco end = _mapper.Map<Endereco>(enderecoDTO);
         _service.Adicionar(enderecoDTO);
+        return end;
     }
     //[HttpGet("listar-Endereco")]
     //public List<Endereco> ListarAluno()
@@ -31,17 +32,17 @@ public class EnderecoController : ControllerBase
     //}
 
     [HttpGet("Listar-Enderecos-de-Usuario")]
-    public List<Endereco> ListarCarrinho(int usuarioId)
+    public List<Endereco> ListarEndereco([FromQuery]int usuarioId)
     {
         return _service.ListarEnderecoPorId(usuarioId);
     }
 
-    [HttpPut("editar-Endereco")]
+    [HttpPut("Editar-Endereco")]
     public void EditarProduto(Endereco E)
     {
         _service.Editar(E);
     }
-    [HttpDelete("deletar-Endereco")]
+    [HttpDelete("deletar-endereco")]
     public void DeletarProduto(int id)
     {
         _service.Remover(id);

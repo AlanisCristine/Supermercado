@@ -22,6 +22,7 @@ namespace Core._02_Repository
             using var connection = new SQLiteConnection(ConnectionString);
             connection.Insert<Endereco>(endereco);
         }
+      
         public void Remover(int id)
         {
             using var connection = new SQLiteConnection(ConnectionString);

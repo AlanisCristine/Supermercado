@@ -13,7 +13,7 @@ namespace FrontEnd.Models
         public double Preco { get; set; }
         public override string ToString()
         {
-            Console.WriteLine("---------- Produto ----------");
+            
             return $"Id: {Id} - Nome: {Nome} - Preço: {Preco} \n" +
                              $"-----------------------------";
             
