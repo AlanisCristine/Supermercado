@@ -1,4 +1,5 @@
-﻿using Core._02_Repository;
+﻿using Core._01_Services.Interfaces;
+using Core._02_Repository;
 using Core._03_Entidades;
 using Core.Entidades;
 using System;
@@ -10,12 +11,12 @@ using TrabalhoFinal._02_Repository;
 
 namespace Core._01_Services
 {
-    public class VendaService
+    public class VendaService : IVendaService
     {
-        public VendaRepository repository { get; set; }
-        public VendaService(string _config)
+        private readonly IVendaRepository repository;
+        public VendaService(IVendaRepository vendaRepository)
         {
-            repository = new VendaRepository(_config);
+            repository = vendaRepository;
         }
         public void Adicionar(Venda venda)
         {

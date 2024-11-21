@@ -1,21 +1,23 @@
-﻿using Core.Entidades;
+﻿using Core._02_Repository;
+using Core.Entidades;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using FrontEnd.Models.DTO;
+using Microsoft.Extensions.Configuration;
 using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
 
-public class CarrinhoRepository
+public class CarrinhoRepository : ICarrinhoRepository
 {
     private readonly string ConnectionString;
-    private readonly UsuarioRepository _repositoryUsuario;
-    private readonly ProdutoRepository _repositoryProduto;
-    public CarrinhoRepository(string connectioString)
+    private readonly IUsuarioRepository _repositoryUsuario;
+    private readonly IProdutoRepository _repositoryProduto;
+    public CarrinhoRepository(IConfiguration connectioString, IUsuarioRepository usuarioRepository, IProdutoRepository produtoRepository)
     {
-        ConnectionString = connectioString;
-        _repositoryUsuario = new UsuarioRepository(connectioString);
-        _repositoryProduto = new ProdutoRepository(connectioString);
+        ConnectionString = connectioString.GetConnectionString("DefaultConnection");
+        _repositoryUsuario = usuarioRepository;
+        _repositoryProduto = produtoRepository;
     }
     public void Adicionar(Carrinho carrinho)
     {

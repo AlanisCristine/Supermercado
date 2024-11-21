@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core._01_Services.Interfaces;
 using Core.Entidades;
 using FrontEnd.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +11,15 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class CarrinhoController : ControllerBase
 {
-    private readonly CarrinhoService _service;
+    private readonly ICarrinhoService _service;
     private readonly IMapper _mapper;
-    public CarrinhoController(IConfiguration config, IMapper mapper)
+
+    public CarrinhoController(ICarrinhoService service, IMapper mapper)
     {
-        string _config = config.GetConnectionString("DefaultConnection");
-        _service = new CarrinhoService(_config);
+        _service = service;
         _mapper = mapper;
     }
+
     [HttpPost("adicionar-carrinho")]
     public void AdicionarAluno(Carrinho carrinhoDTO)
     {

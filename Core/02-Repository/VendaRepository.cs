@@ -1,6 +1,7 @@
 ﻿using Core._03_Entidades;
 using Core.Entidades;
 using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -10,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Core._02_Repository
 {
-    public class VendaRepository
+    public class VendaRepository: IVendaRepository
     {
         private readonly string ConnectionString;
-        public VendaRepository(string connectioString)
+        public VendaRepository(IConfiguration config)
         {
-            ConnectionString = connectioString;
+            ConnectionString = config.GetConnectionString("DefaultConnection");
         }
         public void Adicionar(Venda venda)
         {

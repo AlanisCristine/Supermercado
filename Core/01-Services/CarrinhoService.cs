@@ -1,16 +1,19 @@
-﻿using Core.Entidades;
+﻿using Core._01_Services.Interfaces;
+using Core._02_Repository;
+using Core.Entidades;
 using FrontEnd.Models.DTO;
 using TrabalhoFinal._02_Repository;
 
 namespace TrabalhoFinal._01_Services;
 
-public class CarrinhoService
+public class CarrinhoService : ICarrinhoService
 {
-    public CarrinhoRepository repository { get; set; }
-    public CarrinhoService(string _config)
+    private readonly ICarrinhoRepository repository;
+    public CarrinhoService(ICarrinhoRepository carrinhoRepository)
     {
-        repository = new CarrinhoRepository(_config);
+        repository = carrinhoRepository;
     }
+
     public void Adicionar(Carrinho carrinho)
     {
         repository.Adicionar(carrinho);

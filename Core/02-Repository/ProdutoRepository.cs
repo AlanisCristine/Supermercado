@@ -1,15 +1,17 @@
-﻿using Core.Entidades;
+﻿using Core._02_Repository;
+using Core.Entidades;
 using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Configuration;
 using System.Data.SQLite;
 
 namespace TrabalhoFinal._02_Repository;
 
-public class ProdutoRepository
+public class ProdutoRepository : IProdutoRepository
 {
     private readonly string ConnectionString;
-    public ProdutoRepository(string connectioString)
+    public ProdutoRepository(IConfiguration config)
     {
-        ConnectionString = connectioString;
+        ConnectionString = config.GetConnectionString("DefaultConnection");
     }
     public void Adicionar(Produto produto)
     {

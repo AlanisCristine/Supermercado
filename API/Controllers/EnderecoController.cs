@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Core._01_Services;
+using Core._01_Services.Interfaces;
 using Core._03_Entidades;
 using Microsoft.AspNetCore.Mvc;
-using TrabalhoFinal._01_Services;
 
 namespace API.Controllers;
 
@@ -10,14 +9,15 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class EnderecoController : ControllerBase
 {
-    private readonly EnderecoService _service;
+    private readonly IEnderecoService _service;
     private readonly IMapper _mapper;
-    public EnderecoController(IConfiguration config, IMapper mapper)
+
+    public EnderecoController(IEnderecoService service, IMapper mapper)
     {
-        string _config = config.GetConnectionString("DefaultConnection");
-        _service = new EnderecoService(_config);
+        _service = service;
         _mapper = mapper;
     }
+
     [HttpPost("adicionar-Endereco")]
     public Endereco AdicionarAluno(Endereco enderecoDTO)
     {

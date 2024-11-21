@@ -1,15 +1,17 @@
-﻿using Core._03_Entidades.DTO;
+﻿using Core._01_Services.Interfaces;
+using Core._02_Repository;
+using Core._03_Entidades.DTO;
 using Core.Entidades;
 using TrabalhoFinal._02_Repository;
 
 namespace TrabalhoFinal._01_Services;
 
-public class UsuarioService
+public class UsuarioService : IUsuarioService
 {
-    public UsuarioRepository repository { get; set; }
-    public UsuarioService(string _config)
+    private readonly IUsuarioRepository repository;
+    public UsuarioService(IUsuarioRepository usuarioRepository)
     {
-        repository = new UsuarioRepository(_config);
+        repository = usuarioRepository;
     }
     public void Adicionar(Usuario usuario)
     {

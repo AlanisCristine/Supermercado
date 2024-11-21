@@ -1,14 +1,16 @@
-﻿using Core.Entidades;
+﻿using Core._01_Services.Interfaces;
+using Core._02_Repository;
+using Core.Entidades;
 using TrabalhoFinal._02_Repository;
 
 namespace TrabalhoFinal._01_Services;
 
-public class ProdutoService
+public class ProdutoService : IProdutoService
 {
-    public ProdutoRepository repository { get; set; }
-    public ProdutoService(string _config)
+    private readonly IProdutoRepository repository;
+    public ProdutoService(IProdutoRepository produtoRepository)
     {
-        repository = new ProdutoRepository(_config);
+        repository = produtoRepository;
     }
     public void Adicionar(Produto produto)
     {
